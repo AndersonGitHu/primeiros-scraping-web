@@ -1,15 +1,20 @@
 import scrapy
 
+# Criação de classe com Spider (para coleta de dados na web)
+
 class Percival (scrapy.Spider):
     name = 'p'
 
+# Para configurar, em utf-8, os dados a serem extraídos pelo scraping 
     custom_settings = {
         'FEED_EXPORT_ENCODING': 'utf-8'
     }
 
+# Função criada com o método start_requests para orientar as requisições do Spider na coleta de dados
     def start_requests (self):
         yield scrapy.Request ('https://www.puggina.org/videos?pagina=1')
 
+# Função com o método parse para a lógica na extração de dados recebida pelas requisições feitas pelo spider
     def parse (self, response, **kwargs):
         blocos = response.xpath('//div[@class="portfolio-item-active"]//div[@class="portfolio-content"]')
         for bloco in blocos:
